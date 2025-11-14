@@ -1,0 +1,317 @@
+#root {
+  width: 100vw;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f0f2f5; /* Thêm màu nền cho trang */
+}
+
+.sudoku-app.sudoku-vite {
+  max-width: 1200px;
+  min-width: 900px;
+  margin: 40px auto;
+  padding: 40px 24px 32px 24px;
+  text-align: center;
+  font-family: 'Segoe UI', 'Roboto', Arial, sans-serif;
+}
+
+.sudoku-title {
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: #1976d2;
+  margin-bottom: 24px;
+  letter-spacing: 1px;
+}
+
+/* --- BỐ CỤC CHÍNH --- */
+.sudoku-layout {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start; /* Canh lề trên */
+  justify-content: center;
+  gap: 32px;
+  width: 100%;
+}
+
+/* --- BẢNG SUDOKU (BÊN TRÁI) --- */
+.sudoku-board {
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.1);
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+}
+
+.sudoku-row {
+  display: flex;
+}
+
+.sudoku-cell-wrap {
+  position: relative;
+}
+
+.sudoku-cell {
+  width: 78px; /* Kích thước ô có thể điều chỉnh */
+  height: 78px;
+  text-align: center;
+  font-size: 2.4rem;
+  border: 1px solid #dde1e4;
+  outline: none;
+  background: #fff;
+  margin: 0;
+  padding: 0;
+  border-radius: 8px;
+  transition: background 0.2s, box-shadow 0.2s;
+}
+
+.cell-selected {
+  box-shadow: 0 0 0 3px #1976d2aa;
+  border-radius: 8px;
+  z-index: 10;
+}
+
+.sudoku-cell:focus, .sudoku-cell:hover {
+  background: #e3f2fd;
+}
+
+.sudoku-cell.thick-top { border-top: 2.5px solid #333; }
+.sudoku-cell.thick-left { border-left: 2.5px solid #333; }
+.sudoku-row:first-child .sudoku-cell { border-top: 2.5px solid #333; }
+.sudoku-cell:last-child { border-right: 2.5px solid #333; }
+.sudoku-row:last-child .sudoku-cell { border-bottom: 2.5px solid #333; }
+
+.cell-initial {
+  color: #222;
+  font-weight: 700;
+  background: #fff;
+}
+.cell-solved {
+  color: #1976d2;
+  font-weight: 700;
+  background: #e3f2fd;
+}
+
+.cell-clear-btn {
+  position: absolute;
+  right: 2px;
+  top: 2px;
+  width: 18px;
+  height: 18px;
+  font-size: 1rem;
+  background: #fff;
+  color: #d32f2f;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  transition: background 0.2s;
+}
+.cell-clear-btn:hover { background: #ffeaea; }
+
+
+/* --- BẢNG ĐIỀU KHIỂN (BÊN PHẢI) --- */
+.sudoku-side-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 280px; /* Chiều rộng cố định cho panel */
+}
+
+/* Khu vực nút hành động phụ */
+.sudoku-actions {
+  display: flex;
+  gap: 16px;
+  justify-content: space-around;
+}
+
+.action-btn {
+  flex-grow: 1;
+  padding: 10px 15px;
+  font-size: 1rem;
+  font-weight: 600; /* Thêm chữ đậm */
+  border-radius: 8px;
+  border: none; /* Bỏ border mặc định */
+  cursor: pointer;
+  transition: background 0.2s;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.08); /* Thêm bóng mờ */
+}
+
+/* THÊM MÀU SẮC CHO CÁC NÚT */
+.action-btn.btn-clear-cell {
+  background-color: #ffeaea;
+  color: #d32f2f;
+}
+.action-btn.btn-clear-cell:hover:not(:disabled) {
+  background-color: #ffcdd2;
+}
+
+.action-btn.btn-clear-all {
+  background-color: #f6f8fa;
+  color: #444;
+  border: 1px solid #ccc;
+}
+.action-btn.btn-clear-all:hover:not(:disabled) {
+  background-color: #e9ecef;
+}
+
+.action-btn:disabled {
+  background: #eee !important; /* Thêm !important để ghi đè */
+  color: #aaa !important;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+/* Bàn phím số */
+.sudoku-number-pad {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* Tạo layout 3 cột */
+  gap: 12px;
+}
+
+.number-btn {
+  width: 100%;
+  aspect-ratio: 1 / 1; /* Giữ tỷ lệ vuông */
+  font-size: 2.2rem;
+  font-weight: 700;
+  background: #e3f2fd;
+  color: #1976d2;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(25, 118, 210, 0.08);
+  transition: background 0.2s, box-shadow 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.number-btn:hover:not(:disabled) {
+  background: #bbdefb;
+}
+
+.number-btn:disabled {
+  background: #eee;
+  color: #aaa;
+  cursor: not-allowed;
+}
+
+/* Nút Giải Sudoku */
+.sudoku-controls button {
+  width: 100%; /* Chiếm toàn bộ chiều rộng */
+  padding: 14px 22px;
+  font-size: 1.2rem;
+  border-radius: 8px;
+  border: none;
+  background: linear-gradient(90deg, #1976d2 60%, #42a5f5 100%);
+  color: #fff;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(25, 118, 210, 0.08);
+  transition: background 0.2s, box-shadow 0.2s;
+}
+
+.sudoku-controls button:hover:not(:disabled) {
+  background: linear-gradient(90deg, #1565c0 60%, #1976d2 100%);
+  box-shadow: 0 4px 16px rgba(25, 118, 210, 0.13);
+}
+
+.sudoku-controls button:disabled {
+  background: #b0bec5;
+  cursor: not-allowed;
+}
+
+/* Thông báo lỗi và ghi chú */
+.sudoku-error {
+  color: #d32f2f;
+  font-weight: 600;
+}
+
+.sudoku-note {
+  font-size: 0.9rem;
+  color: #555;
+  line-height: 1.5;
+}
+
+
+/* --- RESPONSIVE CHO MÀN HÌNH NHỎ --- */
+@media (max-width: 900px) {
+  .sudoku-layout {
+    flex-direction: column;
+    align-items: center;
+  }
+  .sudoku-side-panel {
+    width: 100%;
+    max-width: 450px; /* Giới hạn chiều rộng trên di động */
+    margin-top: 20px;
+  }
+  .sudoku-app.sudoku-vite {
+    max-width: 98vw;
+    min-width: unset;
+    padding: 12px;
+  }
+  .sudoku-board {
+    padding: 8px;
+  }
+  .sudoku-cell {
+    width: 9vw; /* Điều chỉnh theo chiều rộng màn hình */
+    height: 9vw;
+    max-width: 48px;
+    max-height: 48px;
+    font-size: 1.2rem;
+  }
+}
+
+/*Code game sudoku*/
+.sudoku-levels {
+  margin-bottom: 24px;
+  text-align: center;
+}
+.sudoku-levels button {
+  margin: 0 8px;
+  padding: 8px 20px;
+  border-radius: 8px;
+  border: none;
+  background: #e3f0ff;
+  color: #1976d2;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.sudoku-levels button.active,
+.sudoku-levels button:hover {
+  background: #1976d2;
+  color: #fff;
+}
+
+/* Layout component */
+.tabbar {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 32px;
+  gap: 16px;
+}
+.tab {
+  padding: 12px 32px;
+  border-radius: 8px 8px 0 0;
+  background: #e3f0ff;
+  color: #1976d2;
+  font-weight: bold;
+  text-decoration: none;
+  font-size: 1.1rem;
+  transition: background 0.2s, color 0.2s;
+}
+.tab.active {
+  background: #1976d2;
+  color: #fff;
+  box-shadow: 0 2px 8px rgba(25, 118, 210, 0.1);
+}
+.tab:hover {
+  background: #90caf9;
+  color: #1976d2;
+}
