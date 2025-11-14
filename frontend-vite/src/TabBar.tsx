@@ -1,24 +1,27 @@
-// import { Link, useLocation } from 'react-router-dom';
-// import './TabBar.css';
+// frontend-vite/src/TabBar.tsx
+// (Bỏ comment toàn bộ file)
 
-// function TabBar() {
-//   const location = useLocation();
-//   return (
-//     <nav className="tabbar">
-//       <Link
-//         to="/game"
-//         className={location.pathname === '/game' ? 'tab active' : 'tab'}
-//       >
-//         Chơi Sudoku
-//       </Link>
-//       <Link
-//         to="/"
-//         className={location.pathname === '/' ? 'tab active' : 'tab'}
-//       >
-//         Công cụ giải
-//       </Link>
-//     </nav>
-//   );
-// }
+import { NavLink } from 'react-router-dom';
+// Xóa './TabBar.css' nếu có, vì App.css đã có style
+// import './TabBar.css'; 
 
-// export default TabBar;
+function TabBar() {
+  return (
+    <nav className="tabbar">
+      <NavLink
+        to="/"
+        className={({ isActive }) => (isActive ? 'tab active' : 'tab')}
+      >
+        Công cụ giải
+      </NavLink>
+      <NavLink
+        to="/game"
+        className={({ isActive }) => (isActive ? 'tab active' : 'tab')}
+      >
+        Chơi Sudoku
+      </NavLink>
+    </nav>
+  );
+}
+
+export default TabBar;

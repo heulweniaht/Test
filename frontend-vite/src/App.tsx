@@ -39,11 +39,11 @@ function App() {
       if (data.solution) {
         setGrid(data.solution);
         setSolved(true);
-        const newInitial = initialCells.map((row, i) => row.map((_cell, j) => !!grid[i][j]));
-        setInitialCells(newInitial);
+        // const newInitial = initialCells.map((row, i) => row.map((_cell, j) => !!grid[i][j]));
+        // setInitialCells(newInitial);
       } else {
         setError('Không tìm được lời giải hợp lệ!');
-      }
+      } 
     } catch (e: any) {
       setError(e.message || 'Lỗi không xác định');
     }
@@ -77,7 +77,7 @@ function App() {
   };
 
   return (
-    <div className="sudoku-app sudoku-vite sudoku-large">
+    <div >
       <h2 className="sudoku-title">🧩 Sudoku Solver </h2>
       <div className="sudoku-layout">
         <div className="sudoku-board">

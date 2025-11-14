@@ -1,5 +1,8 @@
 package com.sudoku.controller;
 
+import com.sudoku.dto.SudokuGameDto; // Import DTO
+import com.sudoku.service.SudokuGenerator; // Import Service
+import org.springframework.beans.factory.annotation.Autowired; // Thêm
 import org.springframework.web.bind.annotation.*;
 import java.util.*;
 
@@ -7,6 +10,18 @@ import java.util.*;
 @CrossOrigin(origins = {"http://localhost:3000", "http://localhost:5173"})
 @RequestMapping("/api/sudoku")
 public class SudokuController {
+
+    // Tiêm (Inject) service
+    @Autowired
+    private SudokuGenerator sudokuGenerator;
+
+    // === ENDPOINT MỚI ===
+    @GetMapping("/generate")
+    public SudokuGameDto generate(@RequestParam String level) {
+        return sudokuGenerator.generateGame(level);
+    }
+
+    // === ENDPOINT CŨ CỦA BẠN ===
     @PostMapping("/solve")
     public Map<String, Object> solve(@RequestBody Map<String, Object> payload) {
         List<List<String>> grid = (List<List<String>>) payload.get("grid");
@@ -67,4 +82,4 @@ public class SudokuController {
         }
         return true;
     }
-}
+}   

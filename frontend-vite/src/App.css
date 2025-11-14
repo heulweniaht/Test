@@ -315,3 +315,143 @@
   background: #90caf9;
   color: #1976d2;
 }
+/* --- SỬA MÀU CHỮ BỊ MỜ --- */
+
+/* Sửa màu chữ cho "Chọn cấp độ" */
+.sudoku-levels span {
+  color: #213547; /* Dùng màu chữ đậm mặc định */
+  font-weight: 600;
+  vertical-align: middle; /* Căn cho đẹp với các nút */
+}
+
+/* Sửa màu chữ và làm nổi bật "Số lỗi" */
+.sudoku-mistakes {
+  font-size: 1.2rem;
+  color: #d32f2f;   /* Màu đỏ đậm cho lỗi sai */
+  font-weight: 600;
+  margin-bottom: 16px;
+}
+
+/* Sửa màu chữ và làm nổi bật thông báo "Game Over" */
+.sudoku-game-over {
+  color: #d32f2f; /* Màu đỏ đậm */
+  background: #ffeaea; /* Nền hồng nhạt */
+  border: 1px solid #ffcdd2; /* Viền hồng */
+  border-radius: 8px;
+  padding: 16px;
+  margin-bottom: 16px;
+  text-align: center;
+}
+
+.sudoku-game-over h3 {
+  color: #d32f2f; /* Đảm bảo h3 cũng có màu đỏ */
+  margin-top: 0;
+  margin-bottom: 8px;
+}
+
+.sudoku-game-over p {
+  color: #d32f2f; /* Đảm bảo p cũng có màu đỏ */
+  margin: 0;
+}
+
+/* Container cho "Số lỗi" và "Timer" */
+.sudoku-game-info {
+  display: flex;
+  justify-content: center; /* Đặt 2 mục ở giữa */
+  gap: 40px; /* Khoảng cách giữa 2 mục */
+  margin-bottom: 16px;
+}
+
+.sudoku-timer {
+  font-size: 1.2rem;
+  color: #213547; /* Màu đen/xanh đậm */
+  font-weight: 600;
+}
+
+/* === CSS ĐỂ LÀM ĐỎ SỐ SAI === */
+.sudoku-cell.cell-error {
+  color: #d32f2f !important; /* Màu chữ đỏ (dùng !important để ghi đè) */
+  background-color: #ffeaea !important; /* Nền hồng nhạt */
+  font-weight: 700; /* Làm chữ đậm hơn */
+}
+
+/* --- CSS CHO TẠM DỪNG (PAUSE) --- */
+
+/* Sửa lại layout để thêm nút Pause */
+.sudoku-game-info {
+  display: flex;
+  justify-content: center;
+  align-items: center; /* Căn giữa các mục */
+  gap: 40px;
+  margin-bottom: 16px;
+}
+
+/* Nút Tạm dừng */
+.pause-btn {
+  padding: 8px 20px;
+  font-size: 1rem;
+  font-weight: 600;
+  background-color: #f6f8fa;
+  color: #444;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.pause-btn:hover:not(:disabled) {
+  background-color: #e9ecef;
+}
+.pause-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Container cho bảng và overlay */
+.sudoku-board-container {
+  position: relative; /* Rất quan trọng */
+}
+
+/* Màn hình chờ (che bảng) */
+.pause-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  
+  /* Hiệu ứng mờ như ảnh */
+  background-color: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px); /* cho Safari */
+  
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 20; /* Nằm trên bảng */
+  border-radius: 10px; /* Bo góc giống bảng */
+  cursor: pointer;
+}
+
+/* Icon Play (hình tam giác màu xanh) */
+.play-icon {
+  width: 80px;  /* Kích thước vòng tròn xanh */
+  height: 80px;
+  background-color: #1976d2; /* Màu xanh */
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0.9;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+/* Vẽ hình tam giác bên trong */
+.play-icon::after {
+  content: '';
+  width: 0;
+  height: 0;
+  border-top: 20px solid transparent;
+  border-bottom: 20px solid transparent;
+  border-left: 30px solid white; /* Tam giác màu trắng */
+  margin-left: 10px; /* Căn tam giác vào giữa vòng tròn */
+}
